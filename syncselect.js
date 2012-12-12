@@ -1,33 +1,24 @@
 (function ( $ ) {
-	function createSource(selectOptions){
-		var source = {};
-		$.each(selectOptions, function(i, option){
-			var $option = $(option);
-			if ($option.val() != ""){
-				source[$option.val()] = $option.text(); 
-			}
+	function buildSource(source){
+		var sourceObj = {};
+		$.each(source, function(i, option){
+			var text = option instanceof String ? option : option.Text;
+			var value = option.Value === undefined ? text : option.Value;
+			sourceObj[value] = new Option(text, value);
 		});
-		return source;
+		return sourceObj;
 	}
 
 	var methods = {
-		init: function(){
-			var selectOptions = this.eq(0).find('option');
-			this.source = createSource(this.selectOptions);
-			this.previousSelectedValue = null;
-			console.log(this);
-		},
-		setSelected: function(value){
+		init: function(options){
+			this.source = buildSource(options.source);
+			var self = this;
 			$.each(this, function(i, selectList){
-				var $options = $(selectList).find('option');
-				$.each($options, function(i, option){
-					var $option = $(option);
-					if ($option.val() == value || $option.text() == value){
-						$option.remove();
-					}
-				}); 
+				$.each(self.source, function(i, option){
+					$(selectList).append(option);
+				});
 			});
-		}
+		},
 	}
 
 	$.fn.syncSelect = function( method ){
