@@ -10,7 +10,7 @@
 				var $selectList = $(selectList);
 				$selectList.append(new Option(self.defaultOption.text))
 				$.each(source, function(i, option){
-					$(selectList).append(new Option(option.text, option.value));
+					$selectList.append(new Option(option.text, option.value));
 				});
 				
 				var previousValue = $selectList.val();
@@ -23,8 +23,8 @@
 	}
 
 	/******* 
-		HELPER METHODS 
-					*********/
+    HELPER METHODS 
+	*********/
 
 	function buildSource(userSource){
 		$.each(userSource, function(i, option){
@@ -52,7 +52,7 @@
 	}
 
 	function removeOption(value, options){
-		for (var i=0; i<options.length; i++){
+		for (var i=1; i<options.length; i++){
 			var $option = $(options[i]);
 			if ($option.val() == value){
 				$option.remove();
@@ -63,7 +63,7 @@
 
 	function addOption(optionToAdd, options){
 		//index in source object is 1 greater than actual index because default value isn't in source object
-		var index = optionToAdd.index + 1;
+		var index = optionToAdd.index;
 		var $option = null;
 		for (var i=1; i<options.length; i++){
 			$option = $(options[i]);
@@ -74,7 +74,7 @@
 			}
 		}
 		if ($option != null) {
-			$option.before(new Option(optionToAdd.text, optionToAdd.value));		
+			$option.after(new Option(optionToAdd.text, optionToAdd.value));		
 		}
 	}
 

@@ -1,17 +1,36 @@
 <html>
 	<body>
-		<select class="dat-select">
-		</select>
+		<div>
+			<select class="dat-select">
+			</select>
 
-		<select class="dat-select">
-		</select>
+			<select class="dat-select">
+			</select>
 
 
-		<select class="dat-select">
-		</select>
+			<select class="dat-select">
+			</select>
 
-		<select class="dat-select">
-		</select>
+			<select class="dat-select">
+			</select>
+		</div>
+		<br />
+		<br />
+		<br />
+		<br />
+		<div>
+			<select class="dat-select">
+			</select>
+
+			<select class="dat-select">
+			</select>
+
+
+			<select class="dat-select">
+			</select>
+
+			<select class="dat-select">
+		</div>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
 	<script src="syncselect.js" type="text/javascript"></script>
@@ -22,8 +41,12 @@
 			{Text: "Barrel of Acid", Value: 3},
 			{Text: "Crusty Pocket", Value: 4},
 			{Text: "Gassy Bullfrog", Value: 5},
+			{Text: "Cup of Dirt", Value: 6},
+			{Text: "Shoe with Jelly", Value: 7},
+			{Text: "Overachieving Slug", Value: 8},
+			{Text: "Rude Meerkat", Value: 9},
+			{Text: "Anthromorphic Potter", Value: 10}
 		];
-		var select = $('.dat-select');
-		select.syncSelect({ source: source });
+		$('.dat-select').syncSelect({ source: source });
 	</script>
 </html>
