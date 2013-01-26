@@ -1,26 +1,26 @@
 (function ( $ ) {
     var source = {};
     var methods = {
-	    init: function(options){
-		    buildSource(options.source);
-		    this.defaultOption = {text: options.defaultText || "--"} 
+        init: function(options){
+            buildSource(options.source);
+            this.defaultOption = {text: options.defaultText || "--"} 
 
-		    var self = this;
-		    $.each(this, function(i, selectList){
-			    var $selectList = $(selectList);
-			    $selectList.append(new Option(self.defaultOption.text))
-			    $.each(source, function(i, option){
-				    $selectList.append(new Option(option.text, option.value));
-			    });
-			
-			    var previousValue = $selectList.val();
-			    $selectList.on('change', function(e){
-				    syncSelects(self, $selectList, previousValue);
-				    previousValue = $selectList.val();
-			    });
-		    });
-	    },
-    }
+            var self = this;
+            $.each(this, function(i, selectList){
+                var $selectList = $(selectList);
+                $selectList.append(new Option(self.defaultOption.text))
+                $.each(source, function(i, option){
+                $selectList.append(new Option(option.text, option.value));
+                });
+
+                var previousValue = $selectList.val();
+                $selectList.on('change', function(e){
+                syncSelects(self, $selectList, previousValue);
+                previousValue = $selectList.val();
+            });
+        });
+    },
+}
 
 	/******* 
     HELPER METHODS 
@@ -28,28 +28,28 @@
 
     function buildSource(userSource){
         $.each(userSource, function(i, option){
-	        var text = option instanceof String ? option : option.Text || option.text;
-	        var value = option.Value === undefined ? text : option.Value || option.value;
-	        source[value] = {text: text, value: value, index: i};
+            var text = option instanceof String ? option : option.Text || option.text;
+            var value = option.Value === undefined ? text : option.Value || option.value;
+            source[value] = {text: text, value: value, index: i};
         });
     }
 
     function syncSelects(selectLists, $changedSelect, previousValue){
-	    var optionToAdd = source[previousValue];
-	    var optionToRemove = source[$changedSelect.val()];
+        var optionToAdd = source[previousValue];
+        var optionToRemove = source[$changedSelect.val()];
 
-	    $.each(selectLists, function(i, selectList){
-		    if (selectList != $changedSelect[0]){
-			    var $selectList = $(selectList);
-			    var options = $selectList.find('option');
-			    if (optionToRemove)
-				    removeOption(optionToRemove.value, options);
-			    if (optionToAdd)
-				    addOption(optionToAdd, options);
-		    } 
-	    });
+        $.each(selectLists, function(i, selectList){
+            if (selectList != $changedSelect[0]){
+                var $selectList = $(selectList);
+                var options = $selectList.find('option');
+            if (optionToRemove)
+                removeOption(optionToRemove.value, options);
+            if (optionToAdd)
+                addOption(optionToAdd, options);
+        } 
+    });
 
-    }
+}
 
     function removeOption(value, options){
         for (var i=1; i<options.length; i++){
